@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
+{% block title %}
+<title>Detail Pemesanan</title>
+{% endblock title %}
 
 {% block content %}
 <article class="post">
@@ -22,11 +26,11 @@
                 </tr>
                 <tr>
                     <th scope="row">Harga Total</th>
-                    <td colspan="2">Rp. {{ orderan.Cart.total }}</td>
+                    <td colspan="2">Rp. {{ orderan.Cart.total|intcomma }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Tanggal Transaksi</th>
-                    <td colspan="2">{{orderan.timestamp}}</td>
+                    <td colspan="2">{{orderan.timestamp|date:"l, d F Y"}}</td>
                 </tr>
             </tbody>
         </table>
