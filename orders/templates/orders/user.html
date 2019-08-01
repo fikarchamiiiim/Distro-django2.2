@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% comment %} {{ user.order_set.all }} {% endcomment %}
+
+<article class="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-3">
+            {% if profile.userprofileinfo.profile_pic %}
+                <img src="{{profile.userprofileinfo.profile_pic.url}}" width="200px" alt="Sample Image" class="item-image" />
+            </div>
+            {% endif %}
+            
+            <div id="container" class="container col-md-7 bg-light">
+                <h3>Nama</h3>
+                <h4>{{profile.first_name}} {{profile.last_name}}</h4>
+                <h3>Username</h3>
+                <h4>{{profile.username}}</h4>
+                <h3>Alamat</h3>
+                <h5>{{profile.userprofileinfo.alamat}} Kel {{profile.userprofileinfo.Kelurahan}} 
+                    Kec {{profile.userprofileinfo.Kecamatan}}, {{profile.userprofileinfo.Kota}}, 
+                    {{profile.userprofileinfo.Provinsi}}</h5>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock content %}

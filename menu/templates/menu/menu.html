@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<article class="post">
+  <div class="container">
+    <h3>Pilihan</h3>
+    <div class="row">
+      {% for menu in Menus %}
+      <div class="col-sm-3">
+        <div class="card" style="width: 18rem; height: 98%; margin-bottom: 8px;">
+          <img class="card-img-top" src="{{ menu.picMenu.url }}" alt="">
+          <div class="card-body">
+            <h5 class="card-title">{{menu.judulMenu}}</h5>
+            <h5 class="card-text text-info">Rp {{menu.hargaMenu|intcomma}}</h5>
+            <p class="card-text">{{menu.descMenu|truncatewords:15}}</p>
+            <button class="btn btn-success" onclick="window.location.href='{{menu.slug}}'">Lihat Produk</button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</article>
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<table class="table mx-auto w-50 bg-info text-white">
+    <thead>
+        <th>ID Pesanan</th>
+        <th>Nama Pelanggan</th>
+        <th>Harga Total</th>
+        <th>Bukti Pembayaran</th>
+        <th>Status</th>
+    </thead>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+    {% for item in Orderan %}
+    <tr>
+        <td><a href="{% url 'orders:lihatOrder' item.order_id item.user.get_username %}" class="text-white" >{{ item.order_id }}</a></td>
+        <td><a href="{% url 'akunLain' item.user.get_username %}"  class="text-white" > {{ item.user.first_name }}  {{item.user.last_name}}</a></td>
+        <td>{{ item.Cart.total }}</td>
+        <td>
+        {% if item.buktiPembayaran %}
+            <a href="{{ item.buktiPembayaran.url }}" class="btn btn-warning text-white">Lihat Bukti</a> 
+        {% else %}
+            <div class="btn btn-danger">Belum ada bukti</div>
+        {% endif %}
+        </td>
+        <td><a class="btn btn-success" href="{% url 'orders:selesaikanOrder' item.order_id %}" class="text-white">Selesai</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<br/>
+{% endblock content %}
