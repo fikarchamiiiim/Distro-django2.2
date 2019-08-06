@@ -14,22 +14,22 @@ from menu.models import Menu, Variation
 
 def orders(request):
     profile = User.objects.select_related('userprofileinfo').get(id=request.user.id)
+    orderan = order.objects.filter(user__id = request.user.id)
 
     context = {
         'profile':profile,
-        'title': 'Profle',
-        'subtitle':'Profile',
+        'orderan':orderan,
     }
     template = 'orders/user.html'
     return render(request, template, context)
 
 def akun_lain(request, username):
     profile = User.objects.select_related('userprofileinfo').get(username=username)
+    orderan = order.objects.filter(user__id = 4)
 
     context = {
         'profile':profile,
-        'title': 'Profle',
-        'subtitle':'Profile',
+        'orderan':orderan,
     }
     template = 'orders/user.html'
     return render(request, template, context)

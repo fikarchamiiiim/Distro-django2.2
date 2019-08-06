@@ -3,15 +3,24 @@ from django.http import HttpResponse
 from django.db.models import Q
 from .forms import FormBeli
 from .models import Menu
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index(request):
     menus = Menu.objects.filter(kuantitas__gt=0)
     paginator = Paginator(menus, 3)
+
+    try:
+        item = paginator.page(page)
+    except PageNotAnInteger:
+        item = paginator.page(1)
+    except EmptyPage:
+        item = paginator.page(paginator.num_pages)
+
     context = {
         'title': 'Catalog',
         'subtitle': 'Catalog',
         'Menus': menus,
+        'item':item,
 
     }
     return render(request, 'menu/menu.html', context)
@@ -26,14 +35,18 @@ def indexCategory(request, category):
     else:
         menus = Menu.objects.filter(kuantitas__gt=0, active=True).order_by('timestamp').order_by('timestamp')
     
-    paginator = Paginator(menus, 3)
+    paginator = Paginator(menus, 8)
+    
 
     try:
         posts = paginator.page(page)
-    except:
-        pass
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     context = {
         'title': 'Catalog',
+        'category':category,
         'subtitle': 'Catalog',
         'Menus': posts,
         # 'posts':posts,
@@ -52,7 +65,7 @@ def beli(request, category,slug):
         raise Http404
     context = {
         'title': 'Order',
-        'subtitle': 'Orders Detail',
+        'subtitle': pilihan.judulMenu,
         'Menus': pilihan,
         'FormMenu': FormBelii,
     }

@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load thumbnail %}
+
 {% block title %}
 <title>{{ Menus.judulMenu }}</title>
 {% endblock title %}
 {% block content %}
 <article class="post">
   <div class="container-fluid">
-    <h3 class="item-title">{{Menus.judulMenu}}</h3>
     <div class="row">
       <div class="col-md-4 postingan">
         <img src="{{ Menus.picMenu.url }}" width="400px" alt="Sample Image" class="item-image" />

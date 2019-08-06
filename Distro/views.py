@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 
 
 def index(request):
-    carousel = Menu.objects.filter(diskon__gt=0)
+    carousel = Menu.objects.filter(diskon__gt=0).order_by('timestamp')[:2]
     print(carousel)
     context = {
         'title':'Distroku',
