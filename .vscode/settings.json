@@ -1,5 +1,6 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "python.pythonPath": "C:\\Program Files\\Python37\\python.exe",
-    "python.venvPath": "C:\\Dev\\Django\\Env\\Scripts\\python.exe"
+    "python.venvPath": "C:\\Dev\\Django\\Env\\Scripts\\python.exe",
+    "git.ignoreLimitWarning": true
 }

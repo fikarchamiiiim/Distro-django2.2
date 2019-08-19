@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from menu.models import Menu
 from menu.forms import UserForm, UserProfileInfo
+from orders.models import order
 
 #login
 from django.contrib.auth import authenticate,login,logout
@@ -11,14 +12,16 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required,user_passes_test
 
 
-
 def index(request):
+    PesananMasuk = order.objects.filter(status = 'Mulai').count()
     carousel = Menu.objects.filter(diskon__gt=0).order_by('timestamp')[:2]
-    print(carousel)
+    produkBaru = Menu.objects.all().order_by('-timestamp')[:4]
+    request.session['JumlahPesanan'] = PesananMasuk
     context = {
         'title':'Distroku',
         'subtitle':'Selamat Datang di Distroku',
         'carousel':carousel,
+        'Menu':produkBaru,
     }
 
     return render(request, 'index.html', context)
@@ -39,6 +42,14 @@ def cari(request):
     }
 
     return render(request, 'menu/cari.html', context)
+
+def PesananMasuk(request):
+    PesananMasuk = order.objects.filter(buktiPembayaran__isnull = True)
+    print('PesananMasuk')
+    context = {
+        'PesananMasuk':PesananMasuk,
+    }
+    return render(request, 'base.html', context)
 
 
 def registrasi(request):

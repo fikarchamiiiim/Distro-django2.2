@@ -1,12 +1,6 @@
-body {
-    background: #D7F7FE;
-    font-family: "Nunito", sans-serif;
-    color: #222;
-  }
+body {background: #D7F7FE; font-family: "Nunito", sans-serif; color: #222;}
   
-.Pesan {
-  color: #FF6067;
-}
+.Pesan {color: #FF6067;}
 
 
   * {
@@ -322,3 +316,14 @@ body {
   .navbar a:hover{
     color: #1A577F;
   }
+
+/* DropDown */
+.dropdown-account ul {list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;}
+.dropdown-account li {float: left;}
+.dropdown-account li a, .dropbtn {display: inline-block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+.dropdown-account li a:hover, .dropdown:hover .dropbtn {background-color: red;}
+.dropdown-account li.dropdown {display: inline-block;}
+.dropdown-account .dropdown-content {display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1;}
+.dropdown-account .dropdown-content a {color: black; padding: 12px 16px; text-decoration: none; display: block; text-align: left;}
+.dropdown-account .dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown-account .dropdown:hover .dropdown-content {display: block;}

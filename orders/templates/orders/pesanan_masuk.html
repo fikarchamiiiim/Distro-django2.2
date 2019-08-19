@@ -5,8 +5,12 @@
 {% endblock title %}
 
 {% block content %}
-<table class="table table-striped mx-auto w-75 bg-light link-dark">
+<div class="container">
+<h2>Pesanan Masuk</h2>
+
+<table class="table table-striped mx-auto w-100 bg-light link-dark">
     <thead class="thead-dark">
+        <th>Tanggal</th>
         <th>ID Pesanan</th>
         <th>Nama Pelanggan</th>
         <th>Harga Total</th>
@@ -20,10 +24,12 @@
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
         </tr>
     </tfoot>
     {% for item in Orderan %}
     <tr>
+        <td>{{item.timestamp|date:"l, d F Y"}}</td>
         <td><a href="{% url 'orders:lihatOrder' item.order_id item.user.get_username %}" class="text-dark" >{{ item.order_id }}</a></td>
         <td><a href="{% url 'akunLain' item.user.get_username %}"  class="text-dark" > {{ item.user.first_name }}  {{item.user.last_name}}</a></td>
         <td>Rp {{ item.Cart.total|floatformat|intcomma }}</td>
@@ -39,4 +45,5 @@
     {% endfor %}
 </table>
 <br/>
+</div>
 {% endblock content %}

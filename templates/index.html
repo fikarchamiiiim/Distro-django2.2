@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load thumbnail %}
-
+{% load humanize %}
 
 {% block title %}
 <title>Home</title>
@@ -9,34 +9,45 @@
 
 {% block content %}
 <div class="container">
-<div class="row">
-{% for poster in carousel %}
-<div class="card mb-3 w-50">
-    <img src="{{ poster.posterMenu.url }}" class="card-img-top" alt="..." style="object-fit: cover; height:300px;">
-    <div class="card-body">
-      <h5 class="card-title">{{poster.judulMenu}}</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+  <div class="row">
+    {% for poster in carousel %}
+    <div class="card mb-3 w-50">
+      <img src="{{ poster.posterMenu.url }}" class="card-img-top" alt="..." style="object-fit: cover; height:300px;">
+      <div class="card-body">
+        <h5 class="card-title">{{poster.judulMenu}}</h5>
+        <p class="card-text">{{poster.descMenu|truncatewords:15}}</p>
+      </div>
     </div>
-  </div>
     {% endfor %}
   </div>
-</div>
 
-<div class="row">
-  <div class="container">
-
+<h3>Produk Terbaru Di Distroku</h3>
+<div class="row">  </div>
+    <div class="row w-75 mx-auto pb-10">
+      {% for menu in Menu %}
+      <div class="col-sm-3 ">
+        <div class="card w-100">
+          {% thumbnail menu.picMenu "300x160" crop="80% center" as im %}
+          <img class="card-img-top" src="{{im.url}}" width="{{ im.width }}" height="{{ im.height }}">
+          {% endthumbnail %}
+          <div class="card-body">
+            <h5 class="card-title">{{menu.judulMenu}}</h5>
+            <h5 class="card-text text-info">Rp {{menu.hargaMenu|intcomma}}</h5>
+            <a class="btn btn-success text-white" href="{% url 'menu:produkSatuan' 'semua' menu.slug %}">Lihat Produk</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
-</div>
-
 
 
 {% endblock content %}
-  
-  
-  {% comment %} <div class="post">
+
+
+{% comment %} <div class="post">
   <h3>{{poster.judulMenu}}</h3>
   <a href="{% url 'menu:produkSatuan' poster.JK poster.slug %}">
-  <img src="{{ poster.posterMenu.url }}" style="width:100%;">
+    <img src="{{ poster.posterMenu.url }}" style="width:100%;">
   </a>
-  </div> {% endcomment %}
+</div> {% endcomment %}

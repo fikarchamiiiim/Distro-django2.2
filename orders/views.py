@@ -14,7 +14,7 @@ from menu.models import Menu, Variation
 
 def orders(request):
     profile = User.objects.select_related('userprofileinfo').get(id=request.user.id)
-    orderan = order.objects.filter(user__id = request.user.id)
+    orderan = order.objects.filter(user__id = request.user.id).order_by('-timestamp')
 
     context = {
         'profile':profile,
@@ -25,7 +25,7 @@ def orders(request):
 
 def akun_lain(request, username):
     profile = User.objects.select_related('userprofileinfo').get(username=username)
-    orderan = order.objects.filter(user__id = 4)
+    orderan = order.objects.filter(user__id = request.user.id).order_by('-timestamp')
 
     context = {
         'profile':profile,
@@ -52,6 +52,8 @@ def Checkout(request):
         pesanan_baru.user = request.user
         pesanan_baru.order_id = id_generatorOrder()
         pesanan_baru.save()
+        del request.session['cart_id']
+        del request.session['item_total']
     except:
         return HttpResponseRedirect(reverse('cart:cart'))
     
